@@ -10,16 +10,22 @@ import org.apache.commons.lang3.StringUtils;
 import ratpack.core.handling.Context;
 import ratpack.core.handling.Handler;
 import ratpack.core.http.client.HttpClient;
+import ratpack.core.jackson.Jackson;
 import ratpack.exec.Promise;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handler of time requests:
+ * - validate requests
+ * - call invoke TimeZoneDbClient
+ * - return result
+ *
+ */
 @Slf4j
 @RequiredArgsConstructor
 public class TimeHandler implements Handler {
-
-    private final ObjectMapper objectMapper = new ObjectMapper();
 
     private final TimeZoneDbClient timeZoneDbClient;
 
@@ -39,7 +45,7 @@ public class TimeHandler implements Handler {
         }
         HttpClient client = ctx.get(HttpClient.class);
         Promise<TimeZoneDbResponse> promise = timeZoneDbClient.fetchTimezones(client, country, city);
-        promise.onError( e -> error(ctx, e.getMessage()));
+        promise.onError(e -> error(ctx, e.getMessage()));
         promise.then(r -> {
 
             if (!r.getStatus().equalsIgnoreCase("OK")) {
@@ -55,26 +61,22 @@ public class TimeHandler implements Handler {
                             .build()
             ));
 
-            byte[] data = objectMapper.writeValueAsBytes(
+            ctx.render(Jackson.json(
                     TimeHandlerResponse.builder()
                             .status(TimeHandlerResponse.Status.OK)
                             .payload(response)
                             .build()
-            );
-            ctx.getResponse().send(data);
+            ));
         });
     }
 
     private void error(Context ctx, String message) throws JsonProcessingException {
-        ctx.getResponse().send(
-                objectMapper.writeValueAsBytes(
-                        TimeHandlerResponse.builder()
-                                .status(TimeHandlerResponse.Status.ERROR)
-                                .error(message)
-                                .build()
-
-                )
-        );
+        ctx.render(Jackson.json(
+                TimeHandlerResponse.builder()
+                        .status(TimeHandlerResponse.Status.ERROR)
+                        .error(message)
+                        .build()
+        ));
     }
 
 }

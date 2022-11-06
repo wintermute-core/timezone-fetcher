@@ -13,6 +13,8 @@ import java.net.URI;
  */
 public class TimeZoneDbClient {
 
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     private final String apiEndpoint;
 
     private final String apiKey;
@@ -26,7 +28,6 @@ public class TimeZoneDbClient {
         this.apiKey = apiKey;
     }
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
 
     /**
      * Fetch Timezone of City.
@@ -47,6 +48,5 @@ public class TimeZoneDbClient {
     TimeZoneDbResponse parseTimezone(ReceivedResponse response) throws IOException {
         return objectMapper.readValue(response.getBody().getBytes(), TimeZoneDbResponse.class);
     }
-
 
 }
