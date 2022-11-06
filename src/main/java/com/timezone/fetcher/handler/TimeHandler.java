@@ -12,6 +12,9 @@ import ratpack.core.handling.Handler;
 import ratpack.core.http.client.HttpClient;
 import ratpack.exec.Promise;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @RequiredArgsConstructor
 public class TimeHandler implements Handler {
@@ -36,11 +39,26 @@ public class TimeHandler implements Handler {
         }
         HttpClient client = ctx.get(HttpClient.class);
         Promise<TimeZoneDbResponse> promise = timeZoneDbClient.fetchTimezones(client, country, city);
+        promise.onError( e -> error(ctx, e.getMessage()));
         promise.then(r -> {
+
+            if (!r.getStatus().equalsIgnoreCase("OK")) {
+                error(ctx, r.getMessage());
+                return;
+            }
+
+            List<TimeHandlerResponse.TimeAndTimezonePayload> response = new ArrayList<>();
+            r.getZones().forEach(zone -> response.add(
+                    TimeHandlerResponse.TimeAndTimezonePayload.builder()
+                            .time(zone.getFormatted())
+                            .zoneName(zone.getZoneName() + " " + zone.getCityName())
+                            .build()
+            ));
+
             byte[] data = objectMapper.writeValueAsBytes(
                     TimeHandlerResponse.builder()
                             .status(TimeHandlerResponse.Status.OK)
-                            .payload(r)
+                            .payload(response)
                             .build()
             );
             ctx.getResponse().send(data);

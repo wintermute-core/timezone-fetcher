@@ -34,10 +34,10 @@ public class TimeZoneDbClientTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("OK");
-        assertThat(response.getZones().size()).isEqualTo(2);
+        assertThat(response.getZones().size()).isEqualTo(4);
 
         TimeZoneDbResponse.TimeZones timeZones = response.getZones().iterator().next();
-        assertThat(timeZones.getFormatted()).isEqualTo("2022-11-06 16:31:46");
+        assertThat(timeZones.getFormatted()).isEqualTo("2022-11-06 18:13:35");
         assertThat(timeZones.getZoneName()).isEqualTo("Europe/Bucharest");
 
     }

@@ -15,5 +15,12 @@ public class TimeHandlerResponse<Payload> {
 
     private Payload payload;
 
+    @Data
+    @Builder
+    public static class TimeAndTimezonePayload {
+        private String zoneName;
+        private String time;
+    }
+
 
 }
