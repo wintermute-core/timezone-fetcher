@@ -19,6 +19,8 @@ Important application packages:
 * `com.timezone.fetcher.client` - implementation of Timezone DB client
 * `com.timezone.fetcher.handler` - API request handlers
 
+Application frontend part is located in `html` directory.
+
 ## Useful commands
 
 Run application:
