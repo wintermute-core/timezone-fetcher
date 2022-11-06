@@ -11,12 +11,7 @@ public class Main {
         TimeZoneDbClient zoneDbClient = new TimeZoneDbClient("vip.timezonedb.com", "3IEQDGPTOLJY");
 
         RatpackServer.start(server -> server
-                .handlers(chain -> {
-                    chain.get("time", ctx -> {
-                        ctx.insert(new TimeHandler(zoneDbClient));
-                    });
-
-                })
+                .handlers(chain -> chain.get("time", ctx -> ctx.insert(new TimeHandler(zoneDbClient))))
         );
     }
 

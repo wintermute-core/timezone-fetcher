@@ -1,11 +1,20 @@
 package com.timezone.fetcher.handler;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Collection;
+
+/**
+ * API response model classes.
+ */
 @Data
 @Builder
-public class TimeHandlerResponse<Payload> {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TimeHandlerResponse {
 
     public enum Status { OK, ERROR }
 
@@ -13,13 +22,15 @@ public class TimeHandlerResponse<Payload> {
 
     private String error;
 
-    private Payload payload;
+    private Collection<TimeAndTimezonePayload> payload;
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class TimeAndTimezonePayload {
-        private String zoneName;
-        private String time;
+        String zoneName;
+        String time;
     }
 
 

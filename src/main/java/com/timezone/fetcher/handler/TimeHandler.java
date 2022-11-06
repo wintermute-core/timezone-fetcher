@@ -1,6 +1,5 @@
 package com.timezone.fetcher.handler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.timezone.fetcher.service.TimeZoneDbClient;
 import com.timezone.fetcher.service.TimeZoneDbResponse;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,7 @@ import ratpack.core.handling.Handler;
 import ratpack.core.http.client.HttpClient;
 import ratpack.core.jackson.Jackson;
 import ratpack.exec.Promise;
+import ratpack.func.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +31,9 @@ public class TimeHandler implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
         log.info("Handling request");
-        String country = ctx.getRequest().getQueryParams().get("country");
-        String city = ctx.getRequest().getQueryParams().get("city");
+        MultiValueMap<String, String> queryParams = ctx.getRequest().getQueryParams();
+        String country = queryParams.get("country");
+        String city = queryParams.get("city");
 
         if (StringUtils.isBlank(country)) {
             error(ctx, "Missing country field");
@@ -47,7 +48,7 @@ public class TimeHandler implements Handler {
         promise.onError(e -> error(ctx, e.getMessage()));
         promise.then(r -> {
 
-            if (!r.getStatus().equalsIgnoreCase("OK")) {
+            if (!r.getStatus().equalsIgnoreCase(TimeZoneDbClient.STATUS_OK)) {
                 error(ctx, r.getMessage());
                 return;
             }
@@ -69,7 +70,7 @@ public class TimeHandler implements Handler {
         });
     }
 
-    private void error(Context ctx, String message) throws JsonProcessingException {
+    private void error(Context ctx, String message) {
         ctx.render(Jackson.json(
                 TimeHandlerResponse.builder()
                         .status(TimeHandlerResponse.Status.ERROR)

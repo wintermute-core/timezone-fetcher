@@ -13,6 +13,8 @@ import java.net.URI;
  */
 public class TimeZoneDbClient {
 
+    public static final String STATUS_OK = "OK";
+
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     private final String apiEndpoint;
