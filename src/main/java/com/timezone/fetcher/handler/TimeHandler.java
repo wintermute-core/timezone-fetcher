@@ -57,7 +57,7 @@ public class TimeHandler implements Handler {
             r.getZones().forEach(zone -> response.add(
                     TimeHandlerResponse.TimeAndTimezonePayload.builder()
                             .time(zone.getFormatted())
-                            .zoneName(zone.getZoneName() + " " + zone.getCityName())
+                            .zoneName(zone.getZoneName())
                             .build()
             ));
 

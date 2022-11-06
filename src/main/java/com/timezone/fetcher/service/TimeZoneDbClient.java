@@ -7,6 +7,8 @@ import ratpack.exec.Promise;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 
 /**
  * Client to TimezoneDB service.
@@ -39,8 +41,8 @@ public class TimeZoneDbClient {
         String uri = String.format("http://%s/v2.1/get-time-zone?key=%s&by=city&country=%s&city=%s&format=json",
                 apiEndpoint,
                 apiKey,
-                country,
-                city);
+                URLEncoder.encode(country, Charset.defaultCharset()),
+                URLEncoder.encode(city, Charset.defaultCharset()));
 
         return httpClient.get(new URI(uri)).map(response -> {
             return parseTimezone(response);

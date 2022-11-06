@@ -1,12 +1,16 @@
 package com.timezone.fetcher.service;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TimeZoneDbResponse {
 
     private String status;
@@ -19,6 +23,8 @@ public class TimeZoneDbResponse {
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class TimeZones {
         private String countryCode;
         private String countryName;

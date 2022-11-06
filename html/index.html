@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<title>Time and Timezone calculator</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+<h1>Time and Timezone calculator</h1>
+
+Country: <select name="country" id="country">
+    <option value="US">United States</option>
+    <option value="GB">United Kingdom</option>
+    <option value="RO">Romania</option>
+    <option value="DE">Germany</option>
+</select>
+
+City: <input type="text" id="city" name="city" />
+
+<button id="go">Go!</button>
+
+<h2 id="status"></h2>
+
+<table id='table' width="100%" border="1">
+
+</table>
+
+<script>
+$(document).ready(function() {
+$("#go").click(function(){
+
+    city = $("#city").val()
+    country = $("#country").val()
+
+    $("#go").prop( "disabled", true );
+    $("#status").text("Loading timezones")
+    $('#table tbody').empty();
+
+    $.ajax({
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(data){
+
+            if (data.status !== "OK") {
+                errorResponse(data.error)
+                return
+            }
+
+            console.log(data);
+
+            var table = "";
+
+            $.each(data.payload, function (key, value) {
+                table += '<tr>';
+                table += '<td>' +
+                    value.zoneName + '</td>';
+
+                table += '<td>' +
+                    value.time + '</td>';
+                table += '</tr>';
+            });
+
+            $('#table').append(table);
+
+            $("#status").text("")
+            $("#go").prop( "disabled", false );
+        },
+        error: function(){
+            errorResponse("Request error")
+        },
+        processData: false,
+        type: 'GET',
+        url: '/time?country='+encodeURIComponent(country)+'&city='+encodeURIComponent(city)
+    });
+
+});
+});
+
+function errorResponse(message) {
+    $("#go").prop( "disabled", false );
+    $("#status").text(message)
+}
+
+</script>
+
+</body>
+
+</html>
