@@ -1,0 +1,38 @@
+{
+  "status": "OK",
+  "message": "",
+  "totalPage": 1,
+  "currentPage": 1,
+  "zones": [
+    {
+      "countryCode": "RO",
+      "countryName": "Romania",
+      "regionName": "Bucuresti",
+      "cityName": "Bucharest",
+      "zoneName": "Europe\/Bucharest",
+      "abbreviation": "EET",
+      "gmtOffset": 7200,
+      "dst": "0",
+      "zoneStart": 1667091600,
+      "timestamp": 1667752306,
+      "formatted": "2022-11-06 16:31:46",
+      "zoneEnd": 1679792400,
+      "nextAbbreviation": "EEST"
+    },
+    {
+      "countryCode": "RO",
+      "countryName": "Romania",
+      "regionName": null,
+      "cityName": "Bucharest",
+      "zoneName": "Europe\/Bucharest",
+      "abbreviation": "EET",
+      "gmtOffset": 7200,
+      "dst": "0",
+      "zoneStart": 1667091600,
+      "timestamp": 1667752306,
+      "formatted": "2022-11-06 16:31:46",
+      "zoneEnd": 1679792400,
+      "nextAbbreviation": "EEST"
+    }
+  ]
+}
