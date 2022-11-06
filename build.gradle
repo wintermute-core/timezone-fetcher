@@ -7,8 +7,10 @@ buildscript {
     }
 }
 
-apply plugin: "io.ratpack.ratpack-java"
-apply plugin: "idea"
+plugins {
+    id "io.ratpack.ratpack-java" version "2.0.0-rc-1"
+    id "idea"
+}
 
 repositories {
     mavenCentral()
@@ -29,6 +31,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
+
+mainClassName = 'com.timezone.fetcher.Main'
 
 
 tasks.named('test') {
