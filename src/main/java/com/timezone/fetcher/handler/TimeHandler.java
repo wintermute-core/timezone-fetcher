@@ -1,7 +1,6 @@
 package com.timezone.fetcher.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.timezone.fetcher.service.TimeZoneDbClient;
 import com.timezone.fetcher.service.TimeZoneDbResponse;
 import lombok.RequiredArgsConstructor;
