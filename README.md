@@ -125,4 +125,6 @@ Application can be configured by setting environment variables:
 * Exposing Prometheus metrics
 * Rate limiter
 * Better integration tests
+* Improve UI to show more information about timezones
+
 
