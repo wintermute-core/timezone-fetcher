@@ -14,7 +14,7 @@ public class HttpRequestsTest {
     MainClassApplicationUnderTest appUnderTest = new MainClassApplicationUnderTest(Main.class);
 
     @Test
-    public void response() throws Exception {
+    public void validRequest() throws Exception {
 
         appUnderTest.test(testHttpClient -> {
             ReceivedResponse response = testHttpClient.get("/time");
@@ -27,5 +27,8 @@ public class HttpRequestsTest {
         appUnderTest.close();
     }
 
+    private String buildUri(String country, String city) {
+        return String.format("/time?country=%s&city=%s", country, city);
+    }
 
 }

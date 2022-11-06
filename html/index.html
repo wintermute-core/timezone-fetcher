@@ -31,8 +31,8 @@ City: <input type="text" id="city" name="city" />
 $(document).ready(function() {
 $("#go").click(function(){
 
-    city = $("#city").val()
-    country = $("#country").val()
+    var city = $("#city").val()
+    var country = $("#country").val()
 
     $("#go").prop( "disabled", true );
     $("#status").text("Loading timezones")
@@ -47,9 +47,6 @@ $("#go").click(function(){
                 errorResponse(data.error)
                 return
             }
-
-            console.log(data);
-
             var table = "";
 
             $.each(data.payload, function (key, value) {

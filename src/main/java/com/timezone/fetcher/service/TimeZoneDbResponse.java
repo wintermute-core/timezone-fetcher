@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.Collection;
 
+
+/**
+ * TimezoneDb response object.
+ */
 @Data
 @Builder
 @NoArgsConstructor

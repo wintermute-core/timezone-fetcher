@@ -51,6 +51,25 @@ public class TimeHandlerTest {
         });
     }
 
+    @Test
+    public void emptyData() throws Exception {
+        mockApi.test(httpClient -> {
+            // empty country
+            ReceivedResponse response = httpClient.get(buildUri("", "Bucharest"));
+            TimeHandlerResponse parsedResponse = objectMapper.readValue(response.getBody().getBytes(), TimeHandlerResponse.class);
+            assertThat(parsedResponse).isNotNull();
+            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
+            assertThat(parsedResponse.getError()).contains("country");
+
+            // empty city
+            response = httpClient.get(buildUri("Romania", ""));
+            parsedResponse = objectMapper.readValue(response.getBody().getBytes(), TimeHandlerResponse.class);
+            assertThat(parsedResponse).isNotNull();
+            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
+            assertThat(parsedResponse.getError()).contains("city");
+        });
+    }
+
     private String buildUri(String country, String city) {
         return String.format("/time?country=%s&city=%s", country, city);
     }

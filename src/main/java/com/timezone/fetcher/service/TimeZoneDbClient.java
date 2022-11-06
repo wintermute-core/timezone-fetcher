@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 import java.nio.charset.Charset;
 
 /**
- * Client to TimezoneDB service.
+ * Client to TimezoneDB service - perform basic request and deserialization of responses.
  */
 public class TimeZoneDbClient {
 
