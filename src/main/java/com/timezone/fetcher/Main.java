@@ -6,10 +6,17 @@ import ratpack.core.server.RatpackServer;
 
 import java.io.File;
 
+/**
+ * Application entry point
+ */
 public class Main {
 
     public static void main(String... args) throws Exception {
-        TimeZoneDbClient zoneDbClient = new TimeZoneDbClient("vip.timezonedb.com", "3IEQDGPTOLJY");
+
+        String endpoint = System.getenv().getOrDefault("TIMEZONEDB_ENDPOINT", "vip.timezonedb.com");
+        String key = System.getenv().getOrDefault("TIMEZONEDB_KEY", "3IEQDGPTOLJY");
+
+        TimeZoneDbClient zoneDbClient = new TimeZoneDbClient(endpoint, key);
         RatpackServer.start(server -> server
                 .serverConfig(config -> {
                     config.baseDir(new File("html").getAbsoluteFile());

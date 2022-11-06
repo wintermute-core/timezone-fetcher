@@ -19,7 +19,7 @@ import java.util.List;
  * Handler of time requests:
  * - validate requests
  * - call invoke TimeZoneDbClient
- * - return result
+ * - return response
  *
  */
 @Slf4j

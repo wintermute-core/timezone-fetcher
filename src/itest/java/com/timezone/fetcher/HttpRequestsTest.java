@@ -40,19 +40,20 @@ public class HttpRequestsTest {
 
     }
 
+
     @Test
-    public void multipleMatches() throws Exception {
+    public void noCity() throws Exception {
 
         appUnderTest.test(testHttpClient -> {
-            ReceivedResponse response = testHttpClient.get(buildUri("US", "Timis*"));
+            ReceivedResponse response = testHttpClient.get(buildUri("RO", ""));
 
             TimeHandlerResponse parsedResponse = objectMapper.readValue(response.getBody().getBytes(), TimeHandlerResponse.class);
             assertThat(parsedResponse).isNotNull();
-            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.OK);
-            assertThat(parsedResponse.getPayload().size()).isEqualTo(4);
+            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
+            assertThat(parsedResponse.getError()).contains("Missing city field");
         });
-
     }
+
 
     @Test
     public void sameCityMultipleTimes() throws Exception {
@@ -69,16 +70,17 @@ public class HttpRequestsTest {
     }
 
     @Test
-    public void noCity() throws Exception {
+    public void multipleMatches() throws Exception {
 
         appUnderTest.test(testHttpClient -> {
-            ReceivedResponse response = testHttpClient.get(buildUri("RO", ""));
+            ReceivedResponse response = testHttpClient.get(buildUri("US", "Timis*"));
 
             TimeHandlerResponse parsedResponse = objectMapper.readValue(response.getBody().getBytes(), TimeHandlerResponse.class);
             assertThat(parsedResponse).isNotNull();
-            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
-            assertThat(parsedResponse.getError()).contains("Missing city field");
+            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.OK);
+            assertThat(parsedResponse.getPayload().size()).isEqualTo(4);
         });
+
     }
 
     @Test
@@ -104,6 +106,20 @@ public class HttpRequestsTest {
             assertThat(parsedResponse).isNotNull();
             assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
             assertThat(parsedResponse.getError()).contains("Minimum 5 characters needed for wildcard search");
+        });
+    }
+
+
+    @Test
+    public void notExistingCountry() throws Exception {
+
+        appUnderTest.test(testHttpClient -> {
+            ReceivedResponse response = testHttpClient.get(buildUri("TE", "Chicago"));
+
+            TimeHandlerResponse parsedResponse = objectMapper.readValue(response.getBody().getBytes(), TimeHandlerResponse.class);
+            assertThat(parsedResponse).isNotNull();
+            assertThat(parsedResponse.getStatus()).isEqualTo(TimeHandlerResponse.Status.ERROR);
+            assertThat(parsedResponse.getError()).contains("Invalid ISO 3166-1 country code");
         });
     }
 
