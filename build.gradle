@@ -55,9 +55,8 @@ def integrationTestTask = tasks.register('itest', Test) {
     group = 'verification'
     useJUnitPlatform()
 
-    testClassesDirs = integrationTest.output.classesDirs
-    classpath = configurations[integrationTest.runtimeClasspathConfigurationName] + integrationTest.output
-
+    testClassesDirs = sourceSets.itest.output.classesDirs
+    classpath = configurations[sourceSets.itest.runtimeClasspathConfigurationName] + sourceSets.itest.output + sourceSets.test.runtimeClasspath
 }
 
 tasks.named('test') {

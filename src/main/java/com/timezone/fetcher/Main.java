@@ -1,7 +1,7 @@
 package com.timezone.fetcher;
 
 import com.timezone.fetcher.handler.TimeHandler;
-import com.timezone.fetcher.service.TimeZoneDbClient;
+import com.timezone.fetcher.client.TimeZoneDbClient;
 import ratpack.core.server.RatpackServer;
 
 import java.io.File;

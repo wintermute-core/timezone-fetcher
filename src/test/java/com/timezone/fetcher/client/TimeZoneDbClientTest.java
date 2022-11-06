@@ -1,4 +1,4 @@
-package com.timezone.fetcher.service;
+package com.timezone.fetcher.client;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;

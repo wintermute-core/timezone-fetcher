@@ -1,7 +1,7 @@
 package com.timezone.fetcher.handler;
 
-import com.timezone.fetcher.service.TimeZoneDbClient;
-import com.timezone.fetcher.service.TimeZoneDbResponse;
+import com.timezone.fetcher.client.TimeZoneDbClient;
+import com.timezone.fetcher.client.TimeZoneDbResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

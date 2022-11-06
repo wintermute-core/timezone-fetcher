@@ -1,4 +1,4 @@
-package com.timezone.fetcher.service;
+package com.timezone.fetcher.client;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

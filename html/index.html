@@ -36,7 +36,8 @@ $("#go").click(function(){
 
     $("#go").prop( "disabled", true );
     $("#status").text("Loading timezones")
-    $('#table tbody').empty();
+    $('#table body').empty();
+    $('#table').empty();
 
     $.ajax({
         contentType: 'application/json',

@@ -1,4 +1,4 @@
-package com.timezone.fetcher.service;
+package com.timezone.fetcher.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ratpack.core.http.client.HttpClient;
