@@ -1,6 +1,6 @@
 {
   "status": "FAILED",
-  "message": "Minimum 5 characters needed for wildcard search.",
+  "message": "Record not found.",
   "totalPage": 1,
   "currentPage": 1,
   "zones": []

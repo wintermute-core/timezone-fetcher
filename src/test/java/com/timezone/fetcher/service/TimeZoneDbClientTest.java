@@ -52,4 +52,18 @@ public class TimeZoneDbClientTest {
         assertThat(response.getZones().size()).isEqualTo(0);
     }
 
+    @Test
+    public void notFound() throws Exception {
+        when(receivedResponse.getBody()).thenReturn(typedData);
+        when(typedData.getBytes()).thenReturn(
+                IOUtils.toByteArray(this.getClass().getClassLoader().getResourceAsStream("timezonedb-not-found.json"))
+        );
+        TimeZoneDbClient timeZoneDbClient = new TimeZoneDbClient("test");
+        TimeZoneDbResponse response = timeZoneDbClient.parseTimezone(receivedResponse);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isEqualTo("FAILED");
+        assertThat(response.getZones().size()).isEqualTo(0);
+    }
+
 }
